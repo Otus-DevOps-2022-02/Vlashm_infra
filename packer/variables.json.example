@@ -1,7 +1,7 @@
 {
     "service_account_key_file": "",
-    "folder_id": "",
-    "source_image_family": "",
+    "folder_id": "FolderID",
+    "source_image_family": "SoursImageName",
     "subnet_id": "",
-    "ssh_username": ""
+    "ssh_username": "UserName"
 }
