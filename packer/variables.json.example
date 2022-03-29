@@ -1,0 +1,7 @@
+{
+    "service_account_key_file": "./fake_key.json",
+    "folder_id": "FolderID",
+    "source_image_family": "SoursImageName",
+    "subnet_id": "subnetId",
+    "ssh_username": "UserName"
+}
