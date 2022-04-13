@@ -10,7 +10,7 @@ Vlashm Infra repository
     yc iam access-key create --service-account-name <Имя_Сервисного_Аккаунта>
 
 В переменную *storage_key* записать *key_id*, а в переменную *storage_secret* записать *secret*.
-Развернуть *Object Storage* используя конфигурацию из файле *bucket.tf*. Так же можно включить версионирование в бакете, для сохранения предыдущих версий *terraform.state*, добавив
+Развернуть *Object Storage* используя конфигурацию из файле *storage-bucket.tf*. Так же можно включить версионирование в бакете, для сохранения предыдущих версий *terraform.state*, добавив
 
     versioning {
         enabled = true
@@ -19,7 +19,7 @@ Vlashm Infra repository
 
 Для включения бекенда в директории stage(prod) в файле *backend.hcl* в переменную *access_key* записать *key_id*, а в переменную *secret_key* записать *secret* и выполнить
 
-    terraform inti -backend-config=backend.hcl
+    terraform init -backend-config=backend.hcl
 
 Теперь *terraform.state* будет сохраняться в облаке.
 
