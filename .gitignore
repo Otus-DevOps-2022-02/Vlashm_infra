@@ -2,6 +2,8 @@
 variables.json
 
 #Terraform
+versions.tf
+backend.hcl
 .terraform.lock.hcl
 *.tfstate
 *.tfstate.*.backup

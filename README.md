@@ -1,6 +1,35 @@
 # Vlashm_infra
 Vlashm Infra repository
 
+## Домашнее задание 7
+
+### 7.1 Удаленное хранилище для terraform.state
+
+Сначала надо создать статический ключ доступа. Для этого выполнить команду
+
+    yc iam access-key create --service-account-name <Имя_Сервисного_Аккаунта>
+
+В переменную *storage_key* записать *key_id*, а в переменную *storage_secret* записать *secret*.
+Развернуть *Object Storage* используя конфигурацию из файле *bucket.tf*. Так же можно включить версионирование в бакете, для сохранения предыдущих версий *terraform.state*, добавив
+
+    versioning {
+        enabled = true
+    }
+для этого надо добавить сервисному аккаунту роль *storage.admin*. Можно еще включить шифрование на стороне сервера, чтобы данные шифровались при сохранении в *Object Storage*.
+
+Для включения бекенда в директории stage(prod) в файле *backend.hcl* в переменную *access_key* записать *key_id*, а в переменную *secret_key* записать *secret* и выполнить
+
+    terraform inti -backend-config=backend.hcl
+
+Теперь *terraform.state* будет сохраняться в облаке.
+
+### 7.2 Добавление в модули provisioner
+
+- В модули *app* и *dp* добавлены provisioner.
+- Добавлена переменная *deploy* для включения provisioner по умолчанию равная *true*
+- В модуль *dp* добавлен шаблон конфигурации *mongod*
+- В модуль *app* добален шаблон сервиса *puma.service*. В переменную окружения *DATABASE_URL* подставляется адрес БД с использование *Terraform Data Sources*
+
 ## Домашнее задание 6
 - Установлен Terraform
 - Создана конфигурация виртуальных машин в Terraform
