@@ -1,0 +1,8 @@
+cloud_id                 = "b1g"
+folder_id                = "b1g"
+zone                     = "ru-central1-a"
+image_id                 = "fdj"
+subnet_id                = "e9b"
+service_account_key_file = "fake_key.json"
+public_key_path          = "~/.ssh/appuser.pub"
+private_key_path         = "~/.ssh/appuser"

@@ -1,0 +1,5 @@
+    bucket                      = "bucket_name"
+    region                      = "ru-central1-a"
+    key                         = "global/stage/terraform.tfstate"
+    access_key                  = "YCA"
+    secret_key                  = "YCO"
