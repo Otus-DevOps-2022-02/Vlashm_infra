@@ -22,9 +22,9 @@ module "app" {
   private_key_path = var.private_key_path
   deploy           = var.deploy
 
-  depends_on = [
-    module.db
-  ]
+  // depends_on = [
+  //   module.db
+  // ]
 }
 
 // module "vpc" {
