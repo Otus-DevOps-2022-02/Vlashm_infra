@@ -11,6 +11,7 @@ module "db" {
   db_disk_image    = var.db_disk_image
   subnet_id        = var.subnet_id
   private_key_path = var.private_key_path
+  deploy           = var.deploy
 }
 
 module "app" {
@@ -19,10 +20,11 @@ module "app" {
   app_disk_image   = var.app_disk_image
   subnet_id        = var.subnet_id
   private_key_path = var.private_key_path
+  deploy           = var.deploy
 
-  # depends_on = [
-  #   module.db
-  # ]
+  // depends_on = [
+  //   module.db
+  // ]
 }
 
 // module "vpc" {
