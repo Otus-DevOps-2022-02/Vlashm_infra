@@ -15,32 +15,32 @@ Vlashm Infra repository
 - Установлен *Yandex.Cloud SDK* командой `pip install yandexcloud`
 - В директории *plugins/yandec_cloud* добавлен файт *yc_compute.yml*(добавлен в .gitignore, вместо него загружен файл-пример *yc_compute.yml.example*) с конфигурацией плагина:
 
-    ---
-    plugin: yc_compute
-    folders:
-    - b1g
-    auth_kind: serviceaccountfile
-    service_account_file: path_to/key.json
-    compose:
-    ansible_host: network_interfaces[0].primary_v4_address.one_to_one_nat.address
-    hostnames:
-    - "{{ name }}"
-    groups:
-    db: labels['tags'] == 'reddit-db'
-    app: labels['tags'] == 'reddit-app'
+        ---
+        plugin: yc_compute
+        folders:
+        - b1g
+        auth_kind: serviceaccountfile
+        service_account_file: path_to/key.json
+        compose:
+        ansible_host: network_interfaces[0].primary_v4_address.one_to_one_nat.address
+        hostnames:
+        - "{{ name }}"
+        groups:
+        db: labels['tags'] == 'reddit-db'
+        app: labels['tags'] == 'reddit-app'
 
 - Внесены изменения в файл *ansible.cfg*:
 
-    [defaults]
-    inventory = plugins/yandex_cloud/yc_compute.yml
-    inventory_plugins = plugins/yandex_cloud
-    remote_user = ubuntu
-    private_key_file = ~/.ssh/appuser
-    host_key_checking = False
-    retry_files_enabled = False
+        [defaults]
+        inventory = plugins/yandex_cloud/yc_compute.yml
+        inventory_plugins = plugins/yandex_cloud
+        remote_user = ubuntu
+        private_key_file = ~/.ssh/appuser
+        host_key_checking = False
+        retry_files_enabled = False
 
-    [inventory]
-    enable_plugins = yc_compute
+        [inventory]
+        enable_plugins = yc_compute
 
 - Проверина работа плагина.
 
