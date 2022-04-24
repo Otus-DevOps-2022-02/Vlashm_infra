@@ -1,6 +1,49 @@
 # Vlashm_infra
 Vlashm Infra repository
 
+## Домашнее задание 9
+
+- Созданы все необходимые плэйбуки из основного ДЗ.
+- В модуль *terraform/db* добавлен вывод output-переменной *internal_ip_address_db*
+- Созданы плэйбуки *packer_app.yml* и *packer_db.yml* для замены bash-скриптов в секция *provision* образов *packer/app.json*  и *packer/db.json*
+
+### Задание со *
+
+Для динемического inventory добавлен плакин *yc_compute.py*:
+- Создана директория *plugins/yandec_cloud*
+- В нее добавлен файл плагина *yc_compute.py*. Пришлось внести небольшие изменения: изменить имя плагина с *community.general.yc_compute* на *yc_compute*. Иначе Ansible не находил плагин *yc_compute* в коллекции *community.general*
+- Установлен *Yandex.Cloud SDK* командой `pip install yandexcloud`
+- В директории *plugins/yandec_cloud* добавлен файт *yc_compute.yml*(добавлен в .gitignore, вместо него загружен файл-пример *yc_compute.yml.example*) с конфигурацией плагина:
+
+        ---
+        plugin: yc_compute
+        folders:
+        - b1g
+        auth_kind: serviceaccountfile
+        service_account_file: path_to/key.json
+        compose:
+        ansible_host: network_interfaces[0].primary_v4_address.one_to_one_nat.address
+        hostnames:
+        - "{{ name }}"
+        groups:
+        db: labels['tags'] == 'reddit-db'
+        app: labels['tags'] == 'reddit-app'
+
+- Внесены изменения в файл *ansible.cfg*:
+
+        [defaults]
+        inventory = plugins/yandex_cloud/yc_compute.yml
+        inventory_plugins = plugins/yandex_cloud
+        remote_user = ubuntu
+        private_key_file = ~/.ssh/appuser
+        host_key_checking = False
+        retry_files_enabled = False
+
+        [inventory]
+        enable_plugins = yc_compute
+
+- Проверина работа плагина.
+
 ## Домашнее задание 8
 
 - Установил *Ansible*

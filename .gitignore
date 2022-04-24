@@ -10,3 +10,7 @@ backend.hcl
 *.tfstate.backup
 *.tfvars
 .terraform/
+
+#Ansible
+*.retry
+yc_compute.yml

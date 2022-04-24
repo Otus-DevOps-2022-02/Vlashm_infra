@@ -1,0 +1,13 @@
+---
+- name: Add Ruby
+  hosts: default
+  become: true
+  tasks:
+    - name: Install Ruby
+      apt:
+        name:
+          - git
+          - ruby-full
+          - ruby-bundler
+          - build-essential
+        update_cache: true
