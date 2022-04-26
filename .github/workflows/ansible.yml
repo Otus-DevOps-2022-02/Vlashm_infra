@@ -2,9 +2,11 @@ name: Ansible-lint
 
 on:
   push:
-    branches-ignore: main
+    branches-ignore:
+      - main
   pull_request:
-    branches-ignore: main
+    branches-ignore:
+      - main
 
 jobs:
   ansible:
@@ -17,6 +19,9 @@ jobs:
         ref: ${{ github.ref }}
 
     - name: Lint Ansible Playbooks
-      uses: ansible-community/ansible-lint-action@main
+      uses: osism/ansible-lint-action@main
       with:
-        path: "./ansible/"
+        targets: |
+          ./ansible/playbooks
+          ./ansible/roles
+        args: "-c ./ansible/.config/ansible-lint.yml"
