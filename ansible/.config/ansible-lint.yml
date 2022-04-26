@@ -1,6 +1,10 @@
 exclude_paths:
   - .github/
   - ../roles/jdauphant.nginx/
+  - .config/
+  - old/
+  - environments/
+  - plugins/
 
 skip_list:
   - meta-incorrect

@@ -22,6 +22,5 @@ jobs:
       uses: osism/ansible-lint-action@main
       with:
         targets: |
-          ./ansible/playbooks
-          ./ansible/roles
+          ./ansible
         args: "-c ./ansible/.config/ansible-lint.yml"
