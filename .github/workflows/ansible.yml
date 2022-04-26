@@ -19,7 +19,9 @@ jobs:
         ref: ${{ github.ref }}
 
     - name: Copy ansible.cfg
-      run: cp ./ansible/ansible.cfg ./ansible.cfg
+      run: |
+        cp ./ansible/ansible.cfg ./ansible.cfg
+        cp ./ansible/vault.key.example ./vault.key
 
     - name: Lint Ansible Playbooks
       uses: osism/ansible-lint-action@main
