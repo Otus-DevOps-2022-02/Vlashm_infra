@@ -22,4 +22,4 @@ jobs:
         targets: |
           ./ansible/playbooks
           ./ansible/roles
-        args: -c ./ansible/.config/ansible-lint.yml
+        args: "-c ./ansible/.config/ansible-lint.yml"

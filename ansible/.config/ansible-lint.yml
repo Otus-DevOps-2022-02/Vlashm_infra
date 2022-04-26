@@ -5,10 +5,10 @@ exclude_paths:
 skip_list:
   - meta-incorrect
   - meta-no-info
-  - fqcn-builtins
 
 warn_list:
   - var-spacing
   - yaml
   - git-latest
   - risky-file-permissions
+  - fqcn-builtins
