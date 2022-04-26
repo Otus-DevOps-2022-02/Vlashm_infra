@@ -6,6 +6,12 @@ exclude_paths:
   - environments/
   - plugins/
 
+mock_modules:
+   - bundler
+
+mock_roles:
+  - jdauphant.nginx
+
 skip_list:
   - meta-incorrect
   - meta-no-info
