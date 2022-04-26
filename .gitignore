@@ -14,3 +14,4 @@ backend.hcl
 #Ansible
 *.retry
 yc_compute.yml
+jdauphant.nginx

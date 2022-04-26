@@ -1,62 +1,17 @@
 ---
-- name: Configure hosts & deploy application
-  hosts: all
+- name: Configure MongoDB
+  hosts: db
+  tags: db-tag
+  become: true
   vars:
     mongo_bind_ip: 0.0.0.0
-    db_host: 10.128.0.27
   tasks:
-
     - name: Change mongo config file
-      become: true
       template:
-        src: templates/mongod.conf.j2
+        src: ../old/templates/mongod.conf.j2
         dest: /etc/mongod.conf
         mode: 0644
       notify: restart mongod
-      tags: bd-tag
-
-    - name: Add unit file for Puma
-      become: true
-      copy:
-        src: files/puma.service
-        dest: /etc/systemd/system/puma.service
-      notify: reload puma
-      tags: app-tag
-
-    - name: Add config for DB connection
-      template:
-        src: templates/db_config.j2
-        dest: /home/ubuntu/db_config
-      tags: app-tag
-
-    - name: enable puma
-      become: true
-      systemd:
-        name: puma
-        enabled: true
-      tags: app-tag
-
-    - name: Install git
-      become: true
-      apt:
-        name: git
-        state: present
-        update_cache: true
-      tags: deploy-tag
-
-    - name: Fetch the latest version of application code
-      git:
-        repo: 'https://github.com/express42/reddit.git'
-        dest: /home/ubuntu/reddit
-        version: monolith
-      notify: reload puma
-      tags: deploy-tag
-
-    - name: Bundle install
-      bundler:
-        state: present
-        chdir: /home/ubuntu/reddit
-      tags: deploy-tag
 
   handlers:
     - name: restart mongod
@@ -65,6 +20,64 @@
         name: mongod
         state: restarted
 
+- name: Configure App
+  hosts: app
+  tags: app-tag
+  become: true
+  vars:
+    db_host: 10.128.0.19
+  tasks:
+    - name: Add unit file for Puma
+      copy:
+        src: ../old/files/puma.service
+        dest: /etc/systemd/system/puma.service
+        mode: 0644
+      notify: reload puma
+
+    - name: Add config for DB connection
+      template:
+        src: ../old/templates/db_config.j2
+        dest: /home/ubuntu/db_config
+        mode: 0644
+        owner: ubuntu
+        group: ubuntu
+
+    - name: enable puma
+      systemd:
+        name: puma
+        enabled: true
+
+  handlers:
+    - name: reload puma
+      become: true
+      systemd:
+        name: puma
+        state: restarted
+
+- name: Deploy reddit-app
+  hosts: app
+  tags: deploy-tag
+  become: true
+  tasks:
+    - name: Install git
+      apt:
+        name: git
+        state: present
+        update_cache: true
+
+    - name: Fetch the latest version of application code
+      git:
+        repo: 'https://github.com/express42/reddit.git'
+        dest: /home/ubuntu/reddit
+        version: monolith
+      notify: reload puma
+
+    - name: Bundle install
+      bundler:
+        state: present
+        chdir: /home/ubuntu/reddit
+
+  handlers:
     - name: reload puma
       become: true
       systemd:

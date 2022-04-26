@@ -1,0 +1,32 @@
+name: Packer-validate
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  packer:
+    strategy:
+      matrix:
+        env: ["app.json", "db.json"]
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout this repo
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.ref }}
+
+    - name: Create variables.json
+      run: cp ./packer/variables.json.example ./packer/variables.json
+
+    - name: Validate Template
+      uses: hashicorp/packer-github-actions@master
+      with:
+        command: validate
+        arguments: --var-file=variables.json --syntax-only
+        target: ./packer/${{ matrix.env }}

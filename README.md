@@ -1,5 +1,29 @@
+[![Terraform-validate](https://github.com/Otus-DevOps-2022-02/Vlashm_infra/actions/workflows/terraform.yml/badge.svg)](https://github.com/Otus-DevOps-2022-02/Vlashm_infra/actions/workflows/terraform.yml)
+[![Packer-validate](https://github.com/Otus-DevOps-2022-02/Vlashm_infra/actions/workflows/packer.yml/badge.svg)](https://github.com/Otus-DevOps-2022-02/Vlashm_infra/actions/workflows/packer.yml)
+[![Ansible-lint](https://github.com/Otus-DevOps-2022-02/Vlashm_infra/actions/workflows/ansible.yml/badge.svg)](https://github.com/Otus-DevOps-2022-02/Vlashm_infra/actions/workflows/ansible.yml)
+
 # Vlashm_infra
 Vlashm Infra repository
+
+## Домашнее задание 10
+
+- Созданы роли *app* и *db*
+- Плэйбуки отредактированы для работы с ролями
+- Для работы с окружениями *stage* и *prod* созданы дирректории с файлами *inventory* и отдельными переменными
+- Из *ansible-galaxy* установлена роль *jdauphant.nginx*
+- Добавлен плэйбук *user.yml* и зашифрованный переменные для создания пользователей
+
+### Задание *
+
+Динамичейский инвентарь из предыдущего задания добавлен в окружения *stage* и *prod*. По умолчанию запускается *stage*, для запуска *prod* используется команда `ansible-playbook -i environments/prod/yc_compute.yml playbooks/site.yml`
+
+### Задание **
+
+Добавлены проверки *Github Actions*:
+- *packer.yml* - для проверки конфигураций *Packer*
+- *terraform.yml* - для проверки конфигураций *Terraform*
+- *ansible.yml*  - для проверки конфигураций *Ansible*. Добавлен файл настройки *Ansible Lint* по адресу: *ansible/.config/ansible-lint.yml*
+- Добавлены бэйджи в *README.md*
 
 ## Домашнее задание 9
 
