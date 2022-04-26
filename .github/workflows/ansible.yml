@@ -18,14 +18,18 @@ jobs:
       with:
         ref: ${{ github.ref }}
 
-    - name: Copy ansible.cfg
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install ansible-lint
       run: |
-        cp ./ansible/ansible.cfg ./ansible.cfg
-        cp ./ansible/vault.key.example ./vault.key
+        python -m pip install --upgrade pip
+        pip install ansible-lint
 
     - name: Lint Ansible Playbooks
-      uses: osism/ansible-lint-action@main
-      with:
-        targets: |
-          ./ansible
-        args: "-c ./ansible/.config/ansible-lint.yml"
+      run: |
+        cd ansible
+        cp ./vault.key.example ./vault.key
+        ansible-lint
