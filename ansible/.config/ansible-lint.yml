@@ -1,0 +1,24 @@
+exclude_paths:
+  - .github/
+  - ../roles/jdauphant.nginx/
+  - .config/
+  - old/
+  - environments/
+  - plugins/
+
+mock_modules:
+   - bundler
+
+mock_roles:
+  - jdauphant.nginx
+
+skip_list:
+  - meta-incorrect
+  - meta-no-info
+
+warn_list:
+  - var-spacing
+  - yaml
+  - git-latest
+  - risky-file-permissions
+  - fqcn-builtins

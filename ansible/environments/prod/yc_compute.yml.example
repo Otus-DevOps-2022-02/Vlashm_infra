@@ -1,0 +1,13 @@
+---
+plugin: yc_compute
+folders:
+  - b1g
+auth_kind: serviceaccountfile
+service_account_file: path_to/key.json
+compose:
+  ansible_host: network_interfaces[0].primary_v4_address.one_to_one_nat.address
+hostnames:
+  - "{{ name }}"
+groups:
+  db: labels['tags'] == 'reddit-db'
+  app: labels['tags'] == 'reddit-app'

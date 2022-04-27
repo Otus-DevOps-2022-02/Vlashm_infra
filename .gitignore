@@ -2,7 +2,7 @@
 variables.json
 
 #Terraform
-versions.tf
+# versions.tf
 backend.hcl
 .terraform.lock.hcl
 *.tfstate
@@ -14,3 +14,5 @@ backend.hcl
 #Ansible
 *.retry
 yc_compute.yml
+jdauphant.nginx
+vault.key
