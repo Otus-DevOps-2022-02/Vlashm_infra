@@ -41,20 +41,7 @@ jobs:
       run: terraform validate -no-color
       working-directory: ./terraform/${{ matrix.env }}
 
-  tflint:
-    strategy:
-      matrix:
-        env: ["prod", "stage"]
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout this repo
-      uses: actions/checkout@v2
-      with:
-        ref: ${{ github.ref }}
-
     - uses: terraform-linters/setup-tflint@v1
-      name: Setup TFLint
       with:
         tflint_version: latest
 
