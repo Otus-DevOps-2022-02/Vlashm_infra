@@ -11,6 +11,7 @@ mock_modules:
 
 mock_roles:
   - jdauphant.nginx
+  - db
 
 skip_list:
   - meta-incorrect
